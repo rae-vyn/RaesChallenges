@@ -40,7 +40,28 @@ SMODS.Challenge({
     },
     rules = {
         custom = {
-            {id = "only_high_card"}
+            {id = "only_high_card"},
+            {id = "high_level", value = 3}
+        }
+    },
+    restrictions = {
+        banned_other = {{id = "bl_eye", type = "blind"}, {id = "bl_ox", type = "blind"}}
+    }
+})
+
+SMODS.Challenge({
+    key = "splash_ii",
+    jokers = {
+        {id = "j_splash", edition = "negative", eternal = true}
+    },
+    rules = {
+        custom = {
+            {id = "only_high_card"},
+            {id = "high_level", value = 2}
+        },
+        modifiers = {
+            {id = "hands", value = 2},
+            {id = "hand_size", value = 6}
         }
     },
     restrictions = {

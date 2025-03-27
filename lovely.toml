@@ -10,8 +10,7 @@ elseif v.id == 'no_shop_jokers' then
 '''
 position = "before"
 payload = '''
-elseif v.id == 'only_high_card' and not saveTable then
-    rae_level_up_hand(nil, "High Card", nil, 3)
-    self.GAME.modifiers[v.id] = true
+elseif v.id == 'high_level' and not saveTable then
+    rae_level_up_hand(nil, "High Card", nil, v.value - 1)
 '''
 match_indent = true
