@@ -1,0 +1,17 @@
+[manifest]
+version = "1.0.0"
+priority = 15
+
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+elseif v.id == 'no_shop_jokers' then 
+'''
+position = "before"
+payload = '''
+elseif v.id == 'only_high_card' and not saveTable then
+    rae_level_up_hand(nil, "High Card", nil, 3)
+    self.GAME.modifiers[v.id] = true
+'''
+match_indent = true

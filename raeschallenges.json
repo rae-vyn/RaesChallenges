@@ -1,0 +1,14 @@
+{
+	"id": "raes_challenges",
+	"name": "Rae's Challenges",
+	"display_name": "Rae's Challenges",
+	"author": ["Raevyn"],
+	"description": "A few fun challenges!",
+	"prefix": "rchal",
+	"main_file": "main.lua",
+	"priority": 0,
+	"badge_colour": "2F2431",
+	"badge_text_colour": "F6EDD1",
+	"version": "1.0.0",
+	"dependencies": []
+}

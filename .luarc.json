@@ -1,0 +1,13 @@
+{
+    "workspace.library": [
+        "..\\smods\\lsp_def"
+    ],
+    "diagnostics.disable": [
+        "undefined-global",
+        "lowercase-global",
+        "need-check-nil",
+        "duplicate-set-field",
+        "inject-field",
+        "undefined-field"
+    ]
+}
