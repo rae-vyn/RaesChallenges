@@ -40,8 +40,8 @@ SMODS.Challenge({
     },
     rules = {
         custom = {
+            {id = "high_level", value = 3},
             {id = "only_high_card"},
-            {id = "high_level", value = 3}
         }
     },
     restrictions = {
@@ -56,8 +56,8 @@ SMODS.Challenge({
     },
     rules = {
         custom = {
+            {id = "high_level", value = 3},
             {id = "only_high_card"},
-            {id = "high_level", value = 2}
         },
         modifiers = {
             {id = "hands", value = 2},
