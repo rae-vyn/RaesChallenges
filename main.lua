@@ -60,12 +60,72 @@ SMODS.Challenge({
             {id = "only_high_card"},
         },
         modifiers = {
-            {id = "hands", value = 2},
+            {id = "hands", value = 3},
             {id = "hand_size", value = 6}
         }
     },
     restrictions = {
         banned_other = {{id = "bl_eye", type = "blind"}, {id = "bl_ox", type = "blind"}}
+    }
+})
+
+SMODS.Challenge({
+    key = "splash_iii",
+    jokers = {
+        {id = "j_splash", edition = "negative", eternal = true}
+    },
+    rules = {
+        custom = {
+            {id = "high_level", value = 6},
+            {id = "only_high_card"},
+            {id = "faceless"},
+        },
+        modifiers = {
+            {id = "hands", value = 2},
+            {id = "hand_size", value = 5}
+        }
+    },
+    restrictions = {
+        banned_other = {{id = "bl_eye", type = "blind"}, {id = "bl_ox", type = "blind"}}
+    },
+    deck = {
+        type = "Challenge Deck",
+        no_ranks = {
+            K = true,
+            Q = true,
+            J = true
+        }
+    }
+})
+
+SMODS.Challenge({
+    key = "splash_light",
+    jokers = {
+        {id = "j_splash", edition = "negative", eternal = true}
+    },
+    rules = {
+        custom = {
+            {id = "high_level", value = 5},
+            {id = "only_high_card"},
+            {id = "faceless"},
+            {id = "harold"}
+        },
+        modifiers = {
+            {id = "hands", value = 1},
+            {id = "discards", value = 1},
+            {id = "hand_size", value = 3}
+        }
+    },
+    restrictions = {
+        banned_other = {{id = "bl_eye", type = "blind"}, {id = "bl_ox", type = "blind"}}
+    },
+    deck = {
+        type = "Challenge Deck",
+        no_ranks = {
+            K = true,
+            Q = true,
+            J = true
+        }
     }
 })
 
