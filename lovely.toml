@@ -11,7 +11,7 @@ elseif v.value then
 position = "before"
 payload = '''
 elseif v.id == 'only_hand' and not saveTable then
-    self.GAME.modifiers[v.id] = v.value
+    self.GAME.modifiers[v.id] = v.value.hand
 elseif v.id == 'hand_level' and not saveTable then
     rae_level_up_hand(nil, v.value.hand, false, v.value.level - 1)
 '''

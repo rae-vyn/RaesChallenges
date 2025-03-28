@@ -34,7 +34,7 @@ function evaluate_poker_hand(hand)
     local ret = evaluate_poker_hand_ref(hand)
     if G.GAME.modifiers.only_hand then
         for k, v in pairs(ret) do
-            if (k ~= G.GAME.modifiers.only_hand) or (k ~= "High Card") then
+            if (k ~= G.GAME.modifiers.only_hand and k ~= "High Card") then
                 ret[k] = {}
             end
         end
@@ -141,11 +141,11 @@ SMODS.Challenge({
 SMODS.Challenge({
     key = "truthers",
     jokers = {
-        {id = "j_splash", edition = "negative", eternal = true}
+        {id = "j_tribe", edition = "negative", eternal = true},
+        {id = "j_devious"},
     },
     rules = {
         custom = {
-            {id = "hand_level", value = {hand = "Straight Flush", level = 3}},
             {id = "only_hand", value = "Straight Flush"},
             {id = "faceless"},
         },
