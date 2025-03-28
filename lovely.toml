@@ -6,13 +6,31 @@ priority = 15
 [patches.pattern]
 target = "game.lua"
 pattern = '''
-elseif v.id == 'no_shop_jokers' then 
+elseif v.value then 
 '''
 position = "before"
 payload = '''
-elseif v.id == 'only_high_card' and not saveTable then
-    print("hi!")
-    rae_level_up_hand(nil, "High Card", false, self.GAME.modifiers["high_level"] - 1)
-    self.GAME.modifiers[v.id] = true
+elseif v.id == 'only_hand' and not saveTable then
+    self.GAME.modifiers[v.id] = v.value
+elseif v.id == 'hand_level' and not saveTable then
+    rae_level_up_hand(nil, v.value.hand, false, v.value.level - 1)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+modded_starts[#modded_starts+1] = {n=G.UIT.R, config={align = "cl", maxw = 3.5}, nodes= localize{type = 'text', key = 'ch_m_'..v.key, vars = {v.value}, default_col = G.C.L_BLACK}}
+'''
+position = "at"
+payload = '''
+if type(v.value) == "table" then
+    print("table!")
+    modded_starts[#modded_starts+1] = {n=G.UIT.R, config={align = "cl", maxw =3.5}, nodes= localize{type = 'text', key = 'ch_m_'..v.key, vars = {v.value.hand, v.value.level}, default_col = G.C.L_BLACK}}
+else
+    print("not table!")
+    modded_starts[#modded_starts+1] = {n=G.UIT.R, config={align = "cl", maxw = 3.5}, nodes= localize{type = 'text', key = 'ch_m_'..v.key, vars = {v.value}, default_col = G.C.L_BLACK}}
+end
 '''
 match_indent = true

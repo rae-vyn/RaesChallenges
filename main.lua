@@ -20,12 +20,21 @@ function rae_level_up_hand(card, hand_key, instant, amount)
     end
 end
 
+function values(tbl)
+    local vals = {};
+    for _, v in pairs(tbl) do
+        vals[#vals+1] = v
+    end
+
+    return vals
+end
+
 local evaluate_poker_hand_ref = evaluate_poker_hand
 function evaluate_poker_hand(hand)
     local ret = evaluate_poker_hand_ref(hand)
-    if G.GAME.modifiers.only_high_card == true then
+    if G.GAME.modifiers.only_hand then
         for k, v in pairs(ret) do
-            if k ~= "High Card" then
+            if (k ~= G.GAME.modifiers.only_hand) or (k ~= "High Card") then
                 ret[k] = {}
             end
         end
@@ -40,7 +49,7 @@ SMODS.Challenge({
     },
     rules = {
         custom = {
-            {id = "high_level", value = 3},
+            {id = "hand_level", value = {hand = "High Card", level = 6}},
             {id = "only_high_card"},
         }
     },
@@ -56,8 +65,8 @@ SMODS.Challenge({
     },
     rules = {
         custom = {
-            {id = "high_level", value = 3},
-            {id = "only_high_card"},
+            {id = "hand_level", value = {hand = "High Card", level = 6}},
+            {id = "only_hand", value = "High Card"},
         },
         modifiers = {
             {id = "hands", value = 3},
@@ -76,8 +85,8 @@ SMODS.Challenge({
     },
     rules = {
         custom = {
-            {id = "high_level", value = 6},
-            {id = "only_high_card"},
+            {id = "hand_level", value = {hand = "High Card", level = 6}},
+            {id = "only_hand", value = "High Card"},
             {id = "faceless"},
         },
         modifiers = {
@@ -105,8 +114,8 @@ SMODS.Challenge({
     },
     rules = {
         custom = {
-            {id = "high_level", value = 5},
-            {id = "only_high_card"},
+            {id = "hand_level", value = {hand = "High Card", level = 5}},
+            {id = "only_hand", value = "High Card"},
             {id = "faceless"},
             {id = "harold"}
         },
@@ -114,6 +123,34 @@ SMODS.Challenge({
             {id = "hands", value = 1},
             {id = "discards", value = 1},
             {id = "hand_size", value = 3}
+        }
+    },
+    restrictions = {
+        banned_other = {{id = "bl_eye", type = "blind"}, {id = "bl_ox", type = "blind"}}
+    },
+    deck = {
+        type = "Challenge Deck",
+        no_ranks = {
+            K = true,
+            Q = true,
+            J = true
+        }
+    }
+})
+
+SMODS.Challenge({
+    key = "truthers",
+    jokers = {
+        {id = "j_splash", edition = "negative", eternal = true}
+    },
+    rules = {
+        custom = {
+            {id = "hand_level", value = {hand = "Straight Flush", level = 3}},
+            {id = "only_hand", value = "Straight Flush"},
+            {id = "faceless"},
+        },
+        modifiers = {
+            {id = "hand_size", value = 10}
         }
     },
     restrictions = {
