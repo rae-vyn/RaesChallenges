@@ -13,7 +13,8 @@ return {
             c_rchal_chip_in = "Chip-In",
             c_rchal_mult_mogul = "Mult Mogul",
             c_rchal_pair_to_win = "P2W",
-            c_rchal_economist = "The Economist"
+            c_rchal_economist = "The Economist",
+            c_rchal_sorry_doc = "Sorry, Doc"
         },
         v_text = {
             ch_c_only_hand = {"The only existing hand is {C:attention}#1#{}"},
