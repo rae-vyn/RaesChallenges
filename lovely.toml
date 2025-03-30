@@ -6,12 +6,12 @@ priority = 15
 [patches.pattern]
 target = "game.lua"
 pattern = '''
-elseif v.value then 
+elseif v.value then
 '''
 position = "before"
 payload = '''
 elseif v.id == 'only_hand' and not saveTable then
-    self.GAME.modifiers[v.id] = v.value.hand
+    self.GAME.modifiers[v.id] = v.value
 elseif v.id == 'hand_level' and not saveTable then
     rae_level_up_hand(nil, v.value.hand, false, v.value.level - 1)
 '''
@@ -28,6 +28,34 @@ if type(v.value) == "table" then
     game_rules[#game_rules+1] = {n=G.UIT.R, config={align = "cl"}, nodes= localize{type = 'text', key = 'ch_c_'..v.id, vars = {v.value.hand, v.value.level}}}
 else
     game_rules[#game_rules+1] = {n=G.UIT.R, config={align = "cl"}, nodes= localize{type = 'text', key = 'ch_c_'..v.id, vars = {v.value}}}
+end
+'''
+match_indent = true
+
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''-- TARGET: effects before deck final_scoring_step'''
+position = "after"
+payload = '''
+if G.GAME.modifiers.pair_tax and text == "Pair" then
+    ease_dollars(-2)
+end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''if G.GAME.modifiers.all_eternal then
+            card:set_eternal(true)
+        end'''
+position = "after"
+payload = '''
+if G.GAME.modifiers.all_rental then
+    card:set_rental(true)
 end
 '''
 match_indent = true
