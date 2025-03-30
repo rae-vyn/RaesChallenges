@@ -335,6 +335,26 @@ SMODS.Challenge({ -- Economist
 	},
 })
 
+SMODS.Challenge({ -- Sorry, Doc
+	key = "sorry_doc",
+	vouchers = {
+		{ id = "v_seed_money" },
+        { id = "v_money_tree" },
+	},
+    jokers = {
+      {id = "j_mail", edition = "polychrome"},
+    },
+	rules = {
+		custom = {
+			{ id = "all_rental" },
+            { id = "all_eternal"}
+		},
+        modifiers = {
+            { id = "dollars", value = 25 }
+        },
+	},
+})
+
 SMODS.Challenge({ -- Splash II
 	key = "splash_light",
 	jokers = {
@@ -366,25 +386,6 @@ SMODS.Challenge({ -- Splash II
 	},
 })
 
-SMODS.Challenge({ -- Economist
-	key = "sorry_doc",
-	vouchers = {
-		{ id = "v_seed_money" },
-        { id = "v_money_tree" },
-	},
-    jokers = {
-      {id = "j_mail", edition = "polychrome"},
-    },
-	rules = {
-		custom = {
-			{ id = "all_rental" },
-            { id = "all_eternal"}
-		},
-        modifiers = {
-            { id = "dollars", value = 25 }
-        },
-	},
-})
 --[[
 SMODS.Challenge({ -- Truthers II
 	key = "truthers_ii",
