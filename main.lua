@@ -1,3 +1,7 @@
+if not next(SMODS.find_mod("ChDp")) then
+	assert(false, "This mod requires Challenger Deep to run!")
+end
+
 ---Levels up hand (with proper animation) [from JoyousSpring]
 ---@param card Card|table
 ---@param hand_key string
@@ -21,37 +25,15 @@ function rae_level_up_hand(card, hand_key, instant, amount)
 	end
 end
 
-function values(tbl)
-	local vals = {}
-	for _, v in pairs(tbl) do
-		vals[#vals + 1] = v
-	end
-
-	return vals
-end
-
 function mod_mult(_mult)
 	if G.GAME.modifiers.mult_dollar_cap then
-		return math.min(_mult, math.max(2 * G.GAME.dollars, 0))
+		return math.min(_mult, math.max(G.GAME.dollars, 0))
 	elseif G.GAME.modifiers.no_mult then
 		return 1
 	elseif G.GAME.modifiers.mult_chip_cap then
 		return math.min(_mult, hand_chips)
 	end
 	return _mult
-end
-
-local evaluate_poker_hand_ref = evaluate_poker_hand
-function evaluate_poker_hand(hand)
-	local ret = evaluate_poker_hand_ref(hand)
-	if G.GAME.modifiers.only_hand then
-		for k, v in pairs(ret) do
-			if (k ~= "High Card") and (k ~= G.GAME.modifiers.only_hand) then
-				ret[k] = {}
-			end
-		end
-	end
-	return ret
 end
 
 SMODS.Challenge({ -- Splash I
@@ -62,12 +44,25 @@ SMODS.Challenge({ -- Splash I
 	rules = {
 		custom = {
 			{ id = "hand_level", value = { hand = "High Card", level = 6 } },
-			{ id = "only_hand", value = "High Card" },
+			{ id = 'disable_hand', value = "Flush", hand = "Flush" },
+			{ id = 'disable_hand', value = "Pair", hand = "Pair" },
+			{ id = 'disable_hand', value = "Two Pair", hand = "Two Pair" },
+			{ id = 'disable_hand', value = "Three Of A Kind", hand = "Three Of A Kind" },
+			{ id = 'disable_hand', value = "Four Of A Kind", hand = "Four Of A Kind" },
+			{ id = 'disable_hand', value = "Five Of A Kind", hand = "Five Of A Kind" },
+			{ id = 'disable_hand', value = "Full House", hand = "Full House" },
+			{ id = 'disable_hand', value = "Flush House", hand = "Flush House" },
+			{ id = 'disable_hand', value = "Flush Five", hand = "Flush Five" },
+			{ id = 'disable_hand', value = "Straight Flush", hand = "Straight Flush" },
+
 		},
 	},
 	restrictions = {
 		banned_other = { { id = "bl_eye", type = "blind" }, { id = "bl_ox", type = "blind" } },
 	},
+	unlocked = function (self)
+		return true
+	end
 })
 
 SMODS.Challenge({ -- Mono Mult
@@ -152,55 +147,7 @@ SMODS.Challenge({ -- Chips
 		enhancement = "m_bonus",
 	},
 })
---[[
-SMODS.Challenge({
-    key = "splash_ii",
-    jokers = {
-        {id = "j_splash", edition = "negative", eternal = true}
-    },
-    rules = {
-        custom = {
-            {id = "hand_level", value = {hand = "High Card", level = 6}},
-            {id = "only_hand", value = "High Card"},
-        },
-        modifiers = {
-            {id = "hands", value = 3},
-            {id = "hand_size", value = 6}
-        }
-    },
-    restrictions = {
-        banned_other = {{id = "bl_eye", type = "blind"}, {id = "bl_ox", type = "blind"}}
-    }
-})
 
-SMODS.Challenge({
-    key = "splash_iii",
-    jokers = {
-        {id = "j_splash", edition = "negative", eternal = true}
-    },
-    rules = {
-        custom = {
-            {id = "hand_level", value = {hand = "High Card", level = 6}},
-            {id = "only_hand", value = "High Card"},
-            {id = "faceless"},
-        },
-        modifiers = {
-            {id = "hands", value = 2},
-            {id = "hand_size", value = 5}
-        }
-    },
-    restrictions = {
-        banned_other = {{id = "bl_eye", type = "blind"}, {id = "bl_ox", type = "blind"}}
-    },
-    deck = {
-        type = "Challenge Deck",
-        no_ranks = {
-            K = true,
-            Q = true,
-            J = true
-        }
-    }
-})]]
 
 SMODS.Challenge({ -- Truthers
 	key = "truthers",
@@ -210,8 +157,18 @@ SMODS.Challenge({ -- Truthers
 	},
 	rules = {
 		custom = {
-			{ id = "only_hand", value = "Straight Flush" },
 			{ id = "faceless" },
+			{ id = 'disable_hand', value = "Flush", hand = "Flush" },
+			{ id = 'disable_hand', value = "High Card", hand = "High Card" },
+			{ id = 'disable_hand', value = "Pair", hand = "Pair" },
+			{ id = 'disable_hand', value = "Two Pair", hand = "Two Pair" },
+			{ id = 'disable_hand', value = "Three Of A Kind", hand = "Three Of A Kind" },
+			{ id = 'disable_hand', value = "Four Of A Kind", hand = "Four Of A Kind" },
+			{ id = 'disable_hand', value = "Five Of A Kind", hand = "Five Of A Kind" },
+			{ id = 'disable_hand', value = "Full House", hand = "Full House" },
+			{ id = 'disable_hand', value = "Flush House", hand = "Flush House" },
+			{ id = 'disable_hand', value = "Flush Five", hand = "Flush Five" },
+			
 		},
 		modifiers = {
 			{ id = "hand_size", value = 10 },
@@ -249,9 +206,18 @@ SMODS.Challenge({ -- P2W
 	key = "pair_to_win",
 	rules = {
 		custom = {
-            { id = "only_hand", value = "Pair" },
             { id = "hand_level", value = {hand = "Pair", level = 6}},
 			{ id = "pair_tax" },
+			{ id = 'disable_hand', value = "Flush", hand = "Flush" },
+			{ id = 'disable_hand', value = "High Card", hand = "High Card" },
+			{ id = 'disable_hand', value = "Two Pair", hand = "Two Pair" },
+			{ id = 'disable_hand', value = "Three Of A Kind", hand = "Three Of A Kind" },
+			{ id = 'disable_hand', value = "Four Of A Kind", hand = "Four Of A Kind" },
+			{ id = 'disable_hand', value = "Five Of A Kind", hand = "Five Of A Kind" },
+			{ id = 'disable_hand', value = "Full House", hand = "Full House" },
+			{ id = 'disable_hand', value = "Flush House", hand = "Flush House" },
+			{ id = 'disable_hand', value = "Flush Five", hand = "Flush Five" },
+			{ id = 'disable_hand', value = "Straight Flush", hand = "Straight Flush" },
 		},
         modifiers = {
             { id = "dollars", value = 22 }
@@ -327,7 +293,7 @@ SMODS.Challenge({ -- Economist
 	},
 	rules = {
 		custom = {
-			{ id = "all_rental" },
+			{ id = "all_rental_jokers" },
 		},
         modifiers = {
             { id = "dollars", value = 25 }
@@ -342,11 +308,11 @@ SMODS.Challenge({ -- Sorry, Doc
         { id = "v_money_tree" },
 	},
     jokers = {
-      {id = "j_mail", edition = "polychrome"},
+		{id = "j_mail", edition = "polychrome"},
     },
 	rules = {
 		custom = {
-			{ id = "all_rental" },
+			{ id = "all_rental_jokers" },
             { id = "all_eternal"}
 		},
         modifiers = {
@@ -363,7 +329,16 @@ SMODS.Challenge({ -- Splash II
 	rules = {
 		custom = {
 			{ id = "hand_level", value = { hand = "High Card", level = 5 } },
-			{ id = "only_hand", value = "High Card" },
+			{ id = 'disable_hand', value = "Flush", hand = "Flush" },
+			{ id = 'disable_hand', value = "Pair", hand = "Pair" },
+			{ id = 'disable_hand', value = "Two Pair", hand = "Two Pair" },
+			{ id = 'disable_hand', value = "Three Of A Kind", hand = "Three Of A Kind" },
+			{ id = 'disable_hand', value = "Four Of A Kind", hand = "Four Of A Kind" },
+			{ id = 'disable_hand', value = "Five Of A Kind", hand = "Five Of A Kind" },
+			{ id = 'disable_hand', value = "Full House", hand = "Full House" },
+			{ id = 'disable_hand', value = "Flush House", hand = "Flush House" },
+			{ id = 'disable_hand', value = "Flush Five", hand = "Flush Five" },
+			{ id = 'disable_hand', value = "Straight Flush", hand = "Straight Flush" },
 			{ id = "faceless" },
 			{ id = "harold" },
 		},
@@ -386,48 +361,34 @@ SMODS.Challenge({ -- Splash II
 	},
 })
 
---[[
-SMODS.Challenge({ -- Truthers II
-	key = "truthers_ii",
-	jokers = {
-		{ id = "j_tribe", edition = "negative", eternal = true },
-		{ id = "j_crafty" },
-	},
+SMODS.Challenge({ -- Curse Of Jimbo
+	key = "curse_of_jimbo",
 	rules = {
 		custom = {
-			{ id = "only_hand", value = "Flush" },
-			{ id = "faceless" },
-		},
-		modifiers = {
-			{ id = "hand_size", value = 10 },
-		},
-	},
-	restrictions = {
-		banned_cards = {
-			{ id = "j_greedy_joker" },
-			{ id = "j_lusty_joker" },
-			{ id = "j_wrathful_joker" },
-			{ id = "j_gluttenous_joker" },
-			{ id = "j_droll" },
-			{ id = "j_crafty" },
-			{ id = "j_smeared" },
-			{ id = "j_rough_gem" },
-			{ id = "j_bloodstone" },
-			{ id = "j_arrowhead" },
-			{ id = "j_onyx_agate" },
-		},
-		banned_other = { { id = "bl_eye", type = "blind" }, { id = "bl_ox", type = "blind" } },
-	},
-	deck = {
-		type = "Challenge Deck",
-		no_ranks = {
-			K = true,
-			Q = true,
-			J = true,
+			{id = "forced_joker_all", value = "Jimbo", card = "j_joker"}
 		},
 	},
 })
-]]
+
+SMODS.Challenge({ -- Broad Spectrum
+	key = "broad_spectrum",
+	jokers = {
+		{id = "j_smeared"},
+	},
+	rules = {
+		custom = {
+			{id = "forced_joker_pool", value = "Suits", pool = {
+				"j_wrathful_joker",
+				"j_gluttenous_joker",
+				"j_greedy_joker",
+				"j_lusty_joker",
+				"j_flower_pot",
+				"j_smeared"
+			}}
+		},
+	},
+})
+
 SMODS.Keybind({
 	key_pressed = "delete",
 	action = function(self)

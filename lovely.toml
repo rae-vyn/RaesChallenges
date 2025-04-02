@@ -1,3 +1,4 @@
+
 [manifest]
 version = "1.0.0"
 priority = 15
@@ -49,13 +50,23 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
-pattern = '''if G.GAME.modifiers.all_eternal then
-            card:set_eternal(true)
-        end'''
-position = "after"
+pattern = '''text = (amt <-0.01 and '-' or '')..localize("$")..tostring(math.abs(amt))'''
+position = "at"
 payload = '''
-if G.GAME.modifiers.all_rental then
-    card:set_rental(true)
-end
+text = localize("k_rental_cost")
 '''
 match_indent = true
+
+# [[patches]]
+# [patches.pattern]
+# target = "functions/common_events.lua"
+# pattern = '''if G.GAME.modifiers.all_eternal then
+#             card:set_eternal(true)
+#         end'''
+# position = "after"
+# payload = '''
+# if G.GAME.modifiers.all_rental then
+#     card:set_rental(true)
+# end
+# '''
+# match_indent = true
