@@ -36,7 +36,7 @@ function mod_mult(_mult)
     if G.GAME.modifiers.mult_dollar_cap then
         return math.min(_mult, math.max(G.GAME.dollars, 0))
     elseif G.GAME.modifiers.no_mult then
-        return 1
+        return math.min(_mult, G.GAME.modifiers.no_mult)
     elseif G.GAME.modifiers.mult_chip_cap then
         return math.min(_mult, hand_chips)
     end
@@ -99,8 +99,8 @@ SMODS.Challenge({ -- Spaceman
 SMODS.Challenge({ -- Chips
     key = "chip_in",
     jokers = {{id = "j_blue_joker", edition = "foil"}},
-    rules = {custom = {{id = "no_mult"}}},
-    restrictions = {banned_other = {{id = "bl_ox", type = "blind"}}},
+    rules = {custom = {{id = "no_mult", value = 5}}},
+    restrictions = {banned_other = {{id = "bl_ox", type = "blind"}, {id="bl_flint", type="blind"}}},
     deck = {type = "Challenge Deck", enhancement = "m_bonus"}
 })
 

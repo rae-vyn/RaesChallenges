@@ -26,7 +26,7 @@ return {
             ch_c_harold = {"Inspired by {C:money}Star{} in the Balatro server"},
             ch_c_mult_dollar_cap = {"{C:mult}Mult{} cannot exceed current {C:money}$"},
             ch_c_mult_chip_cap = {"{C:mult}Mult{} cannot exceed current {C:blue}Chips"},
-            ch_c_no_mult = {"{C:mult}Mult{} is capped at {C:mult}1"},
+            ch_c_no_mult = {"{C:mult}Mult{} is capped at {C:mult}#1#"},
             ch_c_pair_tax = {"Every played {C:blue}Pair{} costs {C:money}$2"},
             ch_c_all_rental = {"Every Joker is a {C:money}Rental"}
         },
