@@ -16,7 +16,8 @@ return {
             c_rchal_economist = "The Economist",
             c_rchal_sorry_doc = "Sorry, Doc",
             c_rchal_curse_of_jimbo = "Curse Of Jimbo",
-            c_rchal_broad_spectrum = "Broad Spectrum"
+            c_rchal_broad_spectrum = "Broad Spectrum",
+            c_rchal_have_fun = "Have Fun!"
         },
         v_text = {
             ch_c_only_hand = {"The only existing hand is {C:attention}#1#{}"},
