@@ -51,9 +51,11 @@ match_indent = true
 [patches.pattern]
 target = "functions/common_events.lua"
 pattern = '''text = (amt <-0.01 and '-' or '')..localize("$")..tostring(math.abs(amt))'''
-position = "at"
+position = "after"
 payload = '''
-text = localize("k_rental_cost")
+if amount < 0 then
+    text = localize("k_rental_cost")
+end
 '''
 match_indent = true
 

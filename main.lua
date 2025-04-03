@@ -99,8 +99,15 @@ SMODS.Challenge({ -- Spaceman
 SMODS.Challenge({ -- Chips
     key = "chip_in",
     jokers = {{id = "j_blue_joker", edition = "foil"}},
-    rules = {custom = {{id = "no_mult", value = 5}}},
-    restrictions = {banned_other = {{id = "bl_ox", type = "blind"}, {id="bl_flint", type="blind"}}},
+    rules = {
+        custom = {{id = "no_mult", value = 5}},
+        modifiers = {{id = "dollars", value = 50}}
+    },
+    restrictions = {
+        banned_other = {
+            {id = "bl_ox", type = "blind"}, {id = "bl_flint", type = "blind"}
+        }
+    },
     deck = {type = "Challenge Deck", enhancement = "m_bonus"}
 })
 
